@@ -320,13 +320,13 @@ flannel_network_cidr                | 10.99.0.0/16            | A CIDR notation 
 #### Software Versions Installed on OCI Instances
 name                                | default            | description
 ------------------------------------|--------------------|------------
-docker_ver                          | 17.03.1            | Version of Docker to install
-etcd_ver                            | v3.2.2             | Version of etcd to install
-flannel_ver                         | v0.7.1             | Version of Flannel to install
-k8s_ver                             | 1.7.4              | Version of K8s to install (master and workers)
-k8s_dns_ver                         | 1.14.2             | Version of Kube DNS to install
-k8s_dashboard_ver                   | 1.6.3              | Version of Kubernetes dashboard to install
-instance_os_ver                     | 7.4                | Version of OEL operating system
+docker_ver                          | 17.03.1                        | Version of Docker to install
+etcd_ver                            | v3.2.2                         | Version of etcd to install
+flannel_ver                         | v0.7.1                         | Version of Flannel to install
+k8s_ver                             | 1.7.4                          | Version of K8s to install (master and workers)
+k8s_dns_ver                         | 1.14.2                         | Version of Kube DNS to install
+k8s_dashboard_ver                   | 1.6.3                          | Version of Kubernetes dashboard to install
+oracle_linux_image_name             | Oracle-Linux-7.4-2017.10.25-0  | Image name of an Oracle-Linux-7.X image
 
 #### Other
 name                                | default                 | description
