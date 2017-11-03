@@ -233,6 +233,8 @@ k8s_master_lb_access                | public      | Whether the Kubernetes Maste
 
 ##### _Public_ Network Access (default)
 
+![](./docs/images/public_cp_subnet_access.jpg)
+
 When `control_plane_subnet_access=public` and `k8s_master_lb_access=public`, control plane instances and the Kubernetes Master Load Balancer are provisioned in _public_ subnets and automatically get both a public and private IP address. If the inbound security rules allow, you can communicate with them directly via their public IPs. 
 
 The following input variables are used to configure the inbound security rules on the public etcd, master, and worker subnets:
@@ -248,11 +250,14 @@ worker_nodeport_ingress             | 10.0.0.0/16 (VCN only)  | A CIDR notation 
 
 ##### _Private_ Network Access
 
+![](./docs/images/private_cp_subnet_private_lb_access.jpg)
+
 When `control_plane_subnet_access=private` and `k8s_master_lb_access=private`, control plane instances and the Kubernetes Master Load Balancer
  are provisioned in _private_ subnets. In this scenario, we will also set up an instance in a public subnet to 
  perform  Network Address Translation (NAT) for instances in the private subnets so they can send outbound traffic. 
  If your worker nodes need to accept incoming traffic from the Internet, an additional front-end Load Balancer will 
  need to be provisioned in the public subnet to route traffic to workers in the private subnets.
+
 
 The following input variables are used to configure the inbound security rules for the NAT instance(s) and any other instance or front-end Load Balancer in the public subnet:
 
@@ -268,10 +273,11 @@ nat_instance_ad3_enabled            | false                   | whether to provi
 
 *Note*
 
-When `control_plane_subnet_access=private`, you do not need to set the etcd, master, and worker security rules since they already 
-allow all inbound traffic between instances in the VCN.
+Even though we can configure a NAT instance per AD, this [diagram](./docs/images/private_cp_subnet_public_lb_failure.jpg) illustrates that each NAT Instance is still represents a single point of failure for the private subnet that routes outbound traffic to it.
 
 ##### _Private_ and _Public_ Network Access
+
+![](./docs/images/private_cp_subnet_public_lb_access.jpg)
 
 It is also valid to set `control_plane_subnet_access=private` while keeping `k8s_master_lb_access=public`. In this scenario, instances in the 
 cluster's control plane will still provisioned in _private_ subnets and require NAT instance(s). However, the Load 
